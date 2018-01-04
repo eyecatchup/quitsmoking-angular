@@ -1,0 +1,51 @@
+progress[value] {
+    /* Reset the default appearance */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    /* Get rid of default border in Firefox. */
+    border: none;
+
+    width: 70%;
+    height: 5px;
+
+    /* IE implements progress bar value as the color attribute
+       rather than the background-color of a pseudo-element. */
+    color: rgba(16, 108, 200, 1);
+}
+
+/* Style the progress bar _background_ in Webkit/Blink. */
+progress[value]::-webkit-progress-bar {
+    background-color: rgba(170, 209, 249, 1);
+}
+
+/* Style the progress bar value in Firefox.
+   (We cannot style the progress bar background in Firefox!) */
+progress[value]::-moz-progress-bar {
+    background-color: rgba(16, 108, 200, 1);
+}
+
+/* Style the progress bar value in Webkit/Blink. */
+progress[value]::-webkit-progress-value {
+    background-color: rgba(16, 108, 200, 1);
+}
+
+/* Polyfill */
+.progress-bar {
+    background-color: rgba(170, 209, 249, 1);
+
+    width: 250px;
+    height: 5px;
+
+    position: relative;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.progress-bar > span {
+    background-color: rgba(16, 108, 200, 1);
+    height: 5px;
+    display: block;
+    text-indent: -9999px;
+}

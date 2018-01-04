@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang='en-US'>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=11'>
+    <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic'>
+    <link rel='stylesheet' href='https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.5/angular-material.css'>
+    <link rel='stylesheet' href='https://material.angularjs.org/1.1.5/docs.css'>
+    <link rel='stylesheet' href='./css/progressbar.css'>
+
+    <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js'></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.min.js'></script>
+    <!--<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.min.js'></script>-->
+    <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-aria.min.js'></script>
+    <script src='https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.5/angular-material.js'></script>
+</head>
+<body ng-cloak data-ng-app='app' ng-controller='smokingController'>
+
+    <div layout='column' class='md-inline-form inputdemoBasicUsage'>
+
+        <md-content ng-show='!user.stopDate' layout-padding=''>
+            <div>
+                <form name='userForm'>
+                    <div layout-gt-xs='row'>
+                        <md-input-container>
+                            <label>Wann hast du aufgehört?</label>
+                            <md-datepicker ng-model='user.stopDate'></md-datepicker>
+                        </md-input-container>
+                    </div>
+                </form>
+            </div>
+        </md-content>
+
+        <md-content layout-padding=''>
+            <ul style='list-style-type: none;'>
+                <li ng-repeat='item in achievements'>
+                    {{ item.achievement }} ({{ item.progress }}%):<br>
+                    <!--<progress value="{{ item.progress }}" max="100'>{{ item.progress }}%</progress>-->
+                    <div class='progress-bar'>
+                        <span style='width: {{ item.progress }}%;'>Progress: {{ item.progress }}%</span>
+                    </div>
+                </li>
+            </ul>
+            <p ng-hide='!user.stopDate'>
+                <span>Nichtraucher seit <span style='font-weight: bold;'>{{ nonSmokingSince }}</span> Tage(n)</span>
+                <br>
+                <span style='cursor: pointer;' ng-click='showForm()'><em>Aufhör-Datum ändern</em></span>
+            </p>
+        </md-content>
+
+    </div>
+
+    <script src='./js/myapp.js'></script>
+    <script src='./js/services/dtHelper.js'></script>
+    <script src='./js/services/achievements.js'></script>
+    <script src='./js/controllers/smokingController.js'></script>
+</body>
+</html>
