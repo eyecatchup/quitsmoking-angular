@@ -1,1 +1,1 @@
-var app = angular.module('app', ['ngMaterial', 'ngMessages', 'material.svgAssetsCache']);
+var app = angular.module('app', ['ngMaterial']);

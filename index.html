@@ -19,7 +19,7 @@
 
     <div layout='column' class='md-inline-form inputdemoBasicUsage'>
 
-        <md-content ng-show='!user.stopDate' layout-padding=''>
+        <md-content ng-show='!user.stopDate' layout-padding>
             <div>
                 <form name='userForm'>
                     <div layout-gt-xs='row'>
@@ -32,11 +32,12 @@
             </div>
         </md-content>
 
-        <md-content layout-padding=''>
+        <md-content layout-padding>
             <ul style='list-style-type: none;'>
                 <li ng-repeat='item in achievements'>
                     {{ item.achievement }} ({{ item.progress }}%):<br>
                     <!--<progress value="{{ item.progress }}" max="100'>{{ item.progress }}%</progress>-->
+                    <!-- Because native progress lacks cross-browser styling support: -->
                     <div progressbar progress='{{ item.progress }}'>{{ item.progress }}</div>
                 </li>
             </ul>
@@ -51,7 +52,7 @@
 
     </div>
 
-    <script src='./js/myapp.js'></script>
+    <script src='./js/app.js'></script>
     <script src='./js/directives/progressbar.js'></script>
     <script src='./js/services/dtHelper.js'></script>
     <script src='./js/services/achievements.js'></script>
