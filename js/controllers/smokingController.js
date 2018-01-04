@@ -12,6 +12,7 @@ app.controller('smokingController', ['$scope', 'achievements', 'dtHelper', funct
 
         if (true === doTheMath) {
             $scope.nonSmokingSince = dtHelper.getDaysDiff($scope.startDate);
+            $scope.moneySaved = $scope.nonSmokingSince * $scope.costsPerDay;
         }
     };
 
@@ -22,6 +23,8 @@ app.controller('smokingController', ['$scope', 'achievements', 'dtHelper', funct
     $scope.achievements = calc();
 
     $scope.startDate = null;
+    $scope.moneySaved = 0;
+    $scope.costsPerDay = 7;
     $scope.user = {
         email: '',
         stopDate: false
