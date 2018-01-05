@@ -11,7 +11,6 @@
 
     <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js'></script>
     <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.min.js'></script>
-    <!--<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.min.js'></script>-->
     <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-aria.min.js'></script>
     <script src='https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.5/angular-material.js'></script>
 </head>
@@ -23,8 +22,18 @@
             <div>
                 <form name='userForm'>
                     <div layout-gt-xs='row'>
+                        <md-input-container class="md-block" flex-gt-sm="">
+                           <label>Kosten / Tag?</label>
+                           <md-select ng-model="user.costsPerDay">
+                               <md-option ng-repeat="price in costs" value="{{ price }}">
+                                   {{ price | currency }}
+                               </md-option>
+                           </md-select>
+                       </md-input-container>
+                    </div>
+                    <div layout-gt-xs='row'>
                         <md-input-container>
-                            <label>Wann hast du aufgehört?</label>
+                            <label>Wann aufgehört?</label>
                             <md-datepicker ng-model='user.stopDate'></md-datepicker>
                         </md-input-container>
                     </div>
@@ -36,15 +45,15 @@
             <ul style='list-style-type: none;'>
                 <li ng-repeat='item in achievements'>
                     {{ item.achievement }} ({{ item.progress }}%):<br>
-                    <!--<progress value="{{ item.progress }}" max="100'>{{ item.progress }}%</progress>-->
+                    <!--<progress value="{{ item.progress }}" max="100'></progress>-->
                     <!-- Because native progress lacks cross-browser styling support: -->
-                    <div progressbar progress='{{ item.progress }}'>{{ item.progress }}</div>
+                    <div progressbar progress='{{ item.progress }}'></div>
                 </li>
             </ul>
             <p ng-hide='!user.stopDate'>
-                <span>Nichtraucher seit <span style='font-weight: bold;'>{{ nonSmokingSince }}</span> Tage(n)</span>
+                <span>Nichtraucher seit <span style='font-weight: bold;'>{{ nonSmokingDays }}</span> Tage(n)</span>
                 <br>
-                <span>Geld gespart: <span style='font-weight: bold;'>{{ moneySaved }}</span> €</span>
+                <span>Geld gespart: <span style='font-weight: bold;'>{{ moneySaved | currency }}</span></span>
                 <br>
                 <span style='cursor: pointer;' ng-click='showForm()'><em>Aufhör-Datum ändern</em></span>
             </p>
@@ -54,7 +63,8 @@
 
     <script src='./js/app.js'></script>
     <script src='./js/directives/progressbar.js'></script>
-    <script src='./js/services/dtHelper.js'></script>
+    <script src='./js/filters/index.js'></script>
+    <script src='./js/services/calculate.js'></script>
     <script src='./js/services/achievements.js'></script>
     <script src='./js/controllers/smokingController.js'></script>
 </body>

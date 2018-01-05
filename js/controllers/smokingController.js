@@ -1,8 +1,8 @@
-app.controller('smokingController', ['$scope', 'achievements', 'dtHelper', function($scope, achievements, dtHelper) {
+app.controller('smokingController', ['$scope', 'achievements', 'calculate', function($scope, achievements, calculate) {
     var calc = function(doTheMath) {
         $scope.achievements = achievements.getAll().map(function(achievement) {
-            var progress = true !== doTheMath ? 0 : dtHelper.getProgress($scope.startDate,
-                dtHelper.addMs($scope.startDate, achievement.secondsDiff));
+            var progress = true !== doTheMath ? 0 : calculate.getProgress($scope.startDate,
+                calculate.addMs($scope.startDate, achievement.secondsDiff));
 
             return {
                 achievement: achievement.achievement,
@@ -11,26 +11,29 @@ app.controller('smokingController', ['$scope', 'achievements', 'dtHelper', funct
         });
 
         if (true === doTheMath) {
-            $scope.nonSmokingSince = dtHelper.getDaysDiff($scope.startDate);
-            $scope.moneySaved = $scope.nonSmokingSince * $scope.costsPerDay;
+            $scope.nonSmokingDays = calculate.getDaysDiff($scope.startDate);
+            $scope.moneySaved = $scope.nonSmokingDays * $scope.user.costsPerDay;
         }
+    };
+
+    $scope.achievements = calc();
+
+    var arr = Array.apply(null, {length: 21}).map(Number.call, Number);
+    arr.shift();
+    $scope.costs = arr;
+
+    $scope.startDate = null;
+    $scope.nonSmokingDays = 0;
+    $scope.moneySaved = 0;
+
+    $scope.user = {
+        costsPerDay: 7,
+        stopDate: false
     };
 
     $scope.showForm = function() {
         $scope.user.stopDate = false;
     };
-
-    $scope.achievements = calc();
-
-    $scope.startDate = null;
-    $scope.moneySaved = 0;
-    $scope.costsPerDay = 7;
-    $scope.user = {
-        email: '',
-        stopDate: false
-    };
-
-    $scope.nonSmokingSince = 0;
 
     $scope.$watch('user.stopDate', function(date) {
         if (date) {
@@ -54,7 +57,6 @@ app.controller('smokingController', ['$scope', 'achievements', 'dtHelper', funct
             $scope.user.stopDate = new Date(parseInt(cookieVal));
         }
     };
-
     init();
 }]);
 

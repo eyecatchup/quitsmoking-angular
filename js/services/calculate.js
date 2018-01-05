@@ -1,4 +1,4 @@
-app.service('dtHelper', function() {
+app.service('calculate', function() {
     this.addMs = function(startDt, secs) {
         return new Date(startDt.valueOf() + (secs * 1000));
     };
